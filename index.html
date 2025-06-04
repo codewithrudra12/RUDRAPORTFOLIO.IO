@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rudraksh Sharma - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #1a1a1a;
+      color: #e0e0e0;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(26, 26, 26, 0.95);
+      padding: 15px 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .hamburger {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #e0e0e0;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background: #1a1a1a;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+
+    .side-menu.active {
+      right: 0;
+    }
+
+    .side-menu a {
+      color: #e0e0e0;
+      text-decoration: none;
+      padding: 10px 0;
+      font-size: 1.2rem;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .side-menu a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 5px;
+      left: 0;
+      background: #e0e0e0;
+      transition: width 0.3s ease;
+    }
+
+    .side-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* Home Section */
+    .home {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .home video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .home .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .typewriter {
+      font-size: 2rem;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid #e0e0e0;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* About Section */
+    .about {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .about .profile-icon {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #333;
+      margin: 0 auto 20px;
+    }
+
+    .about p {
+      max-width: 600px;
+      margin: 10px auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Services Section */
+    .services {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .service-card {
+      background: #2a2a2a;
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 500px;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: scale(1.05);
+    }
+
+    .service-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      margin-bottom: 15px;
+    }
+
+    .book-btn {
+      background: #4a4a4a;
+      color: #e0e0e0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .book-btn:hover {
+      background: #5a5a5a;
+    }
+
+    .workflow {
+      margin-top: 40px;
+    }
+
+    .workflow ol {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .workflow li {
+      margin: 10px 0;
+    }
+
+    /* Booking Section */
+    .booking {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .booking form {
+      max-width: 500px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .booking input,
+    .booking select,
+    .booking textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #2a2a2a;
+      border: none;
+      border-radius: 5px;
+      color: #e0e0e0;
+    }
+
+    .booking button {
+      background: #4a4a4a;
+      color: #e0e0e0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .booking button:hover {
+      background: #5a5a5a;
+    }
+
+    .booking-success-message {
+      display: none;
+      margin-top: 20px;
+      color: #e0e0e0;
+    }
+
+    /* Query Section */
+    .query {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .query form {
+      max-width: 500px;
+      margin: 0 auto;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .query input,
+    .query textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background: #2a2a2a;
+      border: none;
+      border-radius: 5px;
+      color: #e0e0e0;
+    }
+
+    .query button {
+      background: #4a4a4a;
+      color: #e0e0e0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .query button:hover {
+      background: #5a5a5a;
+    }
+
+    .success-message {
+      display: none;
+      margin-top: 20px;
+      color: #e0e0e0;
+    }
+
+    /* Social Media and Contact */
+    .social {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .social a {
+      color: #e0e0e0;
+      font-size: 1.5rem;
+      margin: 0 15px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .social a:hover {
+      transform: scale(1.2);
+    }
+
+    /* Footer */
+    .footer {
+      background: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .typewriter {
+        font-size: 1.5rem;
+      }
+
+      ..about .profile-icon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensures the image fits nicely in the circle */
+  margin: 0 auto 20px;
+}
+
+      .social a {
+        margin: 0 10px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="hamburger">☰</div>
+    <div class="side-menu">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About Me</a>
+      <a href="#services">Services</a>
+      <a href="#booking">Book Now</a>
+      <a href="#query">Ask a Question</a>
+    </div>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" class="home">
+    <video autoplay muted loop>
+      <source src="/lv_0_20250530184308.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="typewriter"></div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+  <img src="/IMG_20250530_180250.jpg" alt="Profile Picture" class="profile-icon">
+  <p>Hi, I'm Rudraksh Sharma. I'm a Digital Marketer & Video Editor.</p>
+  <p>I specialize in running high-performance Google & Facebook ad campaigns and creating impactful video content.</p>
+</section>
+
+  <!-- Services Section -->
+  <section id="services" class="services">
+    <h2>Services</h2>
+    <div class="service-card">
+      <h3>Google Ads</h3>
+      <p>Campaign setup, targeting, conversion tracking.</p>
+      <a href="#booking" class="book-btn">Book Now</a>
+    </div>
+    <div class="service-card">
+      <h3>Facebook Ads</h3>
+      <p>Creative strategy, pixel setup, retargeting.</p>
+      <a href="#booking" class="book-btn">Book Now</a>
+    </div>
+    <div class="service-card">
+      <h3>Video Editing</h3>
+      <p>Reels, YouTube edits, short-form social content.</p>
+      <a href="#booking" class="book-btn">Book Now</a>
+    </div>
+    <div class="workflow">
+      <h3>Workflow</h3>
+      <ol>
+        <li>Book a Free Call</li>
+        <li>Receive a Custom Plan</li>
+        <li>Launch & Review</li>
+        <li>Final Delivery</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="booking" class="booking">
+    <h2>Book a Service</h2>
+    <form id="booking-form">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <select name="service" required>
+        <option value="" disabled selected>Select a Service</option>
+        <option value="Google Ads">Google Ads</option>
+        <option value="Facebook Ads">Facebook Ads</option>
+        <option value="Video Editing">Video Editing</option>
+      </select>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="booking-success-message">Thank you for your booking request! Redirecting to schedule your meeting...</div>
+  </section>
+
+  <!-- Query Section -->
+  <section id="query" class="query">
+    <h2>Ask a Question</h2>
+    <form id="query-form">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="question" placeholder="Your Question" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="success-message">Thank you for reaching out! I’ll get back to you soon.</div>
+  </section>
+
+  <!-- Social Media and Contact -->
+  <div class="social">
+    <a href="info.itsboyrudra@gmail.com" class="fas fa-envelope" title="Email"></a>
+    <a href="tel:+917878383739" class="fas fa-phone" title="Call"></a>
+    <a href="https://www.instagram.com/itsboyrudra?igsh=ZTd5NnJ6eDd0cHR5" class="fab fa-instagram" title="Instagram"></a>
+    <a href="https://www.linkedin.com/in/rudraksh-sharma-2894b9354?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="fab fa-linkedin" title="LinkedIn"></a>
+    <a href="https://youtube.com/@itsboyrudra?si=mKEddWmFTmLiR9Dc" class="fab fa-youtube" title="YouTube"></a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Rudraksh Sharma. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Navbar
+    const hamburger = document.querySelector('.hamburger');
+    const sideMenu = document.querySelector('.side-menu');
+    const navLinks = document.querySelectorAll('.side-menu a');
+
+    hamburger.addEventListener('click', () => {
+      sideMenu.classList.toggle('active');
+    });
+
+    // Close side menu when a link is clicked
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        sideMenu.classList.remove('active');
+      });
+    });
+
+    // Typewriter Animation
+    const typewriter = document.querySelector('.typewriter');
+    const phrases = [
+      "RUDRAKSH SHARMA",
+      "I Provide:",
+      "Google Ads Services",
+      "Facebook Ads Services",
+      "Professional Video Editing"
+    ];
+    let currentPhrase = 0;
+    let isDeleting = false;
+    let text = '';
+    let speed = 100;
+
+    function type() {
+      const current = phrases[currentPhrase];
+      if (isDeleting) {
+        text = current.substring(0, text.length - 1);
+      } else {
+        text = current.substring(0, text.length + 1);
+      }
+
+      typewriter.textContent = text;
+
+      if (!isDeleting && text === current) {
+        isDeleting = true;
+        speed = 2000;
+      } else if (isDeleting && text === '') {
+        isDeleting = false;
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+        speed = 100;
+      }
+
+      setTimeout(type, isDeleting ? 50 : speed);
+    }
+
+    type();
+
+    // Form Submission (Query)
+    const queryForm = document.getElementById('query-form');
+    const querySuccessMessage = document.querySelector('.success-message');
+    queryForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      queryForm.style.display = 'none';
+      querySuccessMessage.style.display = 'block';
+      queryForm.reset();
+    });
+
+    // Form Submission (Booking)
+    const bookingForm = document.getElementById('booking-form');
+    const bookingSuccessMessage = document.querySelector('.booking-success-message');
+    bookingForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(bookingForm);
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        service: formData.get('service'),
+        message: formData.get('message'),
+      };
+
+      try {
+        const response = await fetch('/api/bookings', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        const result = await response.json();
+        if (response.ok) {
+          bookingForm.style.display = 'none';
+          bookingSuccessMessage.style.display = 'block';
+          bookingForm.reset();
+          // Redirect to Calendly link after 2 seconds
+          setTimeout(() => {
+            window.location.href = result.calendlyLink;
+          }, 2000);
+        } else {
+          alert('Error: ' + result.error);
+        }
+      } catch (error) {
+        alert('Error submitting booking request. Please try again.');
+      }
+    });
+
+    // Active Nav Link
+    window.addEventListener('scroll', () => {
+      let current = '';
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 60) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
